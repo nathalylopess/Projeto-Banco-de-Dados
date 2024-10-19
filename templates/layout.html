@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} document {% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <div class="conteiner">
+        <div class="nav">
+            <nav>
+                <a href="{{ url_for('inicial' ) }}">Página Inicial</a>
+                <a href="{{url_for('listar_tarefas')}}">Listar Tarefas</a>
+                <a href="{{url_for('criar_editar_excluir')}}">Criar - Editar - Excluir </a>
+                <a href="{{ url_for('logout' ) }}">Sair</a>
+            </nav>
+        </div>
+
+        {% block conteudo %}
+           Deixou sem conteudo!!
+        {% endblock %}
+
+    </div>
+</body>
+</html>

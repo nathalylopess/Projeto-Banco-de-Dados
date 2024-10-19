@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Criar/Editar Tarefa{% endblock %}
+
+{% block conteudo %}
+    <h1>{% if tarefa %}Editar Tarefa{% else %}Criar Nova Tarefa{% endif %}</h1>
+
+    <form method="POST" action="{{ url_for('criar_editar_excluir', tarefa_id=tarefa.tar_id if tarefa else None) }}">
+        <input type="text" name="descricao" placeholder="Descrição" value="{{ tarefa.tar_descricao if tarefa else '' }}" required>
+        <input type="date" name="data" placeholder="Data de Criação" value="{{ tarefa.tar_data if tarefa else '' }}" required>
+        <input type="date" name="prazo" placeholder="Data Limite" value="{{ tarefa.tar_prazo if tarefa else '' }}" required>
+        
+        <select name="status">
+            <option value="Concluída" {% if tarefa and tarefa.tar_status == 'Concluída' %}selected{% endif %}>Concluída</option>
+            <option value="Em andamento" {% if tarefa and tarefa.tar_status == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+            <option value="Pendente" {% if tarefa and tarefa.tar_status == 'Pendente' %}selected{% endif %}>Pendente</option>
+        </select>
+        
+        <select name="prioridade">
+            <option value="Baixa" {% if tarefa and tarefa.tar_prioridade == 'Baixa' %}selected{% endif %}>Baixa</option>
+            <option value="Média" {% if tarefa and tarefa.tar_prioridade == 'Média' %}selected{% endif %}>Média</option>
+            <option value="Alta" {% if tarefa and tarefa.tar_prioridade == 'Alta' %}selected{% endif %}>Alta</option>
+        </select>
+        
+        <button type="submit">{% if tarefa %}Salvar Alterações{% else %}Criar Tarefa{% endif %}</button>
+    </form>
+
+    {% if tarefa %}
+    <form method="POST" action="{{ url_for('excluir_tarefa', tarefa_id=tarefa.tar_id) }}">
+        <button type="submit">Excluir Tarefa</button>
+    </form>
+    {% endif %}
+{% endblock %}
