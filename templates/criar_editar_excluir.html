@@ -22,11 +22,17 @@
             <option value="Alta" {% if tarefa and tarefa.tar_prioridade == 'Alta' %}selected{% endif %}>Alta</option>
         </select>
         
+        <select name="categoria">
+            <option value="Trabalho" {% if tarefa and tarefa.tar_categoria == 'Trabalho' %}selected{% endif %}>Trabalho</option>
+            <option value="Estudo" {% if tarefa and tarefa.tar_categoria == 'Estudo' %}selected{% endif %}>Estudo</option>
+            <option value="Pessoal" {% if tarefa and tarefa.tar_categoria == 'Pessoal' %}selected{% endif %}>Pessoal</option>
+        </select>
+
         <button type="submit">{% if tarefa %}Salvar Alterações{% else %}Criar Tarefa{% endif %}</button>
     </form>
 
     {% if tarefa %}
-    <form method="POST" action="{{ url_for('excluir_tarefa', tarefa_id=tarefa.tar_id) }}">
+    <form method="POST" action="{{ url_for('chama_excluir_tarefa', tarefa_id=tarefa.tar_id) }}">
         <button type="submit">Excluir Tarefa</button>
     </form>
     {% endif %}

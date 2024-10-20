@@ -72,7 +72,7 @@ def cadastro():
                   Estamos felizes em recebê-lo em nossa comunidade de leitores! A partir de agora, você terá acesso a uma vasta coleção de livros, eBooks, audiolivros e eventos exclusivos em nossa biblioteca.
                 </p>
                 <p style="color: #333333; font-size: 16px; line-height: 1.6;">
-                  Para começar, sugerimos que explore nossa <a href="{url_for("livros")}" style="color: #00796b; text-decoration: none;">seção de livros</a> ou participe de um dos nossos <strong>clubes de leitura</strong> semanais!
+                  Para começar, sugerimos que explore nossa <a href="{url_for("login")}" style="color: #00796b; text-decoration: none;">seção de livros</a> ou participe de um dos nossos <strong>clubes de leitura</strong> semanais!
                 </p>
                 <p style="color: #333333; font-size: 16px; line-height: 1.6;">
                   Se precisar de ajuda, nossa equipe está à disposição para oferecer orientações e recomendações personalizadas.
@@ -123,7 +123,7 @@ def logout():
     if request.method == "POST":
         logout_user()
         return redirect(url_for("login"))
-    #return render_template("logout.html")
+    return render_template("logout.html")
 
 # Rotas adicionadas
 
@@ -142,13 +142,14 @@ def criar_editar_excluir(tarefa_id=None):
         prazo = request.form['prazo']
         status = request.form['status']
         prioridade = request.form['prioridade']
+        categoria = request.form['categoria']
         
         if tarefa_id:
             # Atualizar tarefa
-            editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade)
+            editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade, categoria)
         else:
             # Criar nova tarefa
-            criar_tarefa(descricao, data, prazo, status, prioridade)
+            criar_tarefa(descricao, data, prazo, status, prioridade, categoria)
         
         return redirect(url_for('listar_tarefas'))
     
@@ -164,7 +165,7 @@ def criar_editar_excluir(tarefa_id=None):
     return render_template('criar_editar_excluir.html', tarefa=tarefa)
 
 @app.route('/excluir_tarefa/<int:tarefa_id>', methods=['POST'])
-def excluir_tarefa_route(tarefa_id):
+def chama_excluir_tarefa(tarefa_id):
     excluir_tarefa(tarefa_id)
     return redirect(url_for('listar_tarefas'))
 

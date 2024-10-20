@@ -126,20 +126,20 @@ def buscar_tarefas(filtro=None):
     conn.close()
     return tarefas
 
-def criar_tarefa(descricao, data, prazo, status, prioridade):
+def criar_tarefa(descricao, data, prazo, status, prioridade, categoria):
     conn = obter_conexao()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO tb_tarefas (tar_descricao, tar_data, tar_prazo, tar_status, tar_prioridade) VALUES (%s, %s, %s, %s, %s)", 
-                   (descricao, data, prazo, status, prioridade))
+    cursor.execute("INSERT INTO tb_tarefas (tar_descricao, tar_data, tar_prazo, tar_status, tar_prioridade, tar_categoria) VALUES (%s, %s, %s, %s, %s, %s)", 
+                   (descricao, data, prazo, status, prioridade, categoria))
     conn.commit()
     cursor.close()
     conn.close()
 
-def editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade):
+def editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade, categoria):
     conn = obter_conexao()
     cursor = conn.cursor()
-    cursor.execute("UPDATE tb_tarefas SET tar_descricao=%s, tar_data=%s, tar_prazo=%s, tar_status=%s, tar_prioridade=%s WHERE tar_id=%s", 
-                   (descricao, data, prazo, status, prioridade, tarefa_id))
+    cursor.execute("UPDATE tb_tarefas SET tar_descricao=%s, tar_data=%s, tar_prazo=%s, tar_status=%s, tar_prioridade=%s, tar_categoria=%s WHERE tar_id=%s", 
+                   (descricao, data, prazo, status, prioridade, categoria, tarefa_id))
     conn.commit()
     cursor.close()
     conn.close()

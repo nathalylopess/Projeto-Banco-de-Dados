@@ -107,59 +107,6 @@ nav a:hover{
 }
 
 
-/* página de comentários: */
-.form_comentarios {
-    border: 1px solid #0056b3 ;
-    color: black;
-    padding: 39px; 
-    border-radius: 5px;
-    box-shadow: 0 0 10px #0056b3; 
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    width: 246px;
-    min-height: 300px;
-    margin: 20px auto;
-}
-
-.form_comentarios h2 {
-    text-align: center;
-}
-
-.form_comentarios .select_livros {
-    text-align: justify;
-    width: 100%;
-    appearance: none;
-    background-color: #0056b3;
-    color: white;
-    text-align: center;
-    border-radius: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-
-}
-
-.form_comentarios .label_mensagem {
-    margin-top: 10px;
-    width: 100%;
-}
-
-.form_comentarios .input_mensagem {
-    display: flex;
-    color: white;
-    height: 35px;
-    max-width: 225px;
-}
-.form_comentarios .botao_enviar {
-    margin-top: 10px;
-    display: flex;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    height: 35px;
-    max-width: 250px;
-}
-
 /* página de logout: */
 .form_logout {
     border: 1px solid #0056b3 ;
@@ -267,4 +214,89 @@ nav a:hover{
 #liv {
     margin-left: 10px;
     text-shadow: 0 0 10px #0056b3;
+}
+
+/* Listar Tarefas */
+
+/* Estrutura principal da página */
+.page-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Formulário de filtragem */
+.form-filtrar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espaço entre os itens */
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-text, .input-date, .input-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: calc(25% - 10px); /* Ajusta a largura */
+    min-width: 150px; /* Largura mínima */
+}
+
+.btn-filtrar {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-filtrar:hover {
+    background-color: #0056b3;
+}
+
+/* Tabela de tarefas */
+.table-container {
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+}
+
+.table-tarefas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.table-tarefas th, 
+.table-tarefas td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-tarefas th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+.table-tarefas tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Ações */
+.acoes-links a {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.acoes-links a:hover {
+    background-color: #0056b3;
 }

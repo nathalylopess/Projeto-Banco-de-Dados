@@ -1,50 +1,53 @@
 {% extends "layout.html" %}
 
 {% block title %}Listar Tarefas{% endblock %}
-
 {% block conteudo %}
-    <h1>Listar Tarefas</h1>
-    
-    <form method="GET" action="{{ url_for('listar_tarefas') }}">
-        <input type="text" name="descricao" placeholder="Buscar por descrição">
-        <select name="status">
-            <option value="">Filtrar por Status</option>
-            <option value="Concluída">Concluída</option>
-            <option value="Em andamento">Em andamento</option>
-            <option value="Pendente">Pendente</option>
-        </select>
-        <input type="date" name="data_inicio" placeholder="Data de Criação">
-        <input type="date" name="data_fim" placeholder="Data Limite">
-        <button type="submit">Filtrar</button>
-    </form>
+    <div class="page-container">
+        <h1>Listar Tarefas</h1>
+        
+        <form class="form-filtrar" method="GET" action="{{ url_for('listar_tarefas') }}">
+            <input type="text" name="descricao" placeholder="Buscar por descrição" class="input-text">
+            <select name="status" class="input-select">
+                <option value="">Filtrar por Status</option>
+                <option value="Concluída">Concluída</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Pendente">Pendente</option>
+            </select>
+            <input type="date" name="data_inicio" class="input-date">
+            <input type="date" name="data_fim" class="input-date">
+            <button type="submit" class="btn-filtrar">Filtrar</button>
+        </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Status</th>
-                <th>Data de Criação</th>
-                <th>Data Limite</th>
-                <th>Prioridade</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tarefa in tarefas %}
-            <tr>
-                <td>{{ tarefa.tar_id }}</td>
-                <td>{{ tarefa.tar_descricao }}</td>
-                <td>{{ tarefa.tar_status }}</td>
-                <td>{{ tarefa.tar_data }}</td>
-                <td>{{ tarefa.tar_prazo }}</td>
-                <td>{{ tarefa.tar_prioridade }}</td>
-                <td>
-                    <a href="{{ url_for('criar_editar_excluir', tarefa_id=tarefa.tar_id) }}">Editar</a>
-                    <a href="{{ url_for('excluir_tarefa', tarefa_id=tarefa.tar_id) }}">Excluir</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="table-container">
+            <table class="table-tarefas">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Data de Criação</th>
+                        <th>Data Limite</th>
+                        <th>Prioridade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tarefa in tarefas %}
+                    <tr>
+                        <td>{{ tarefa.tar_id }}</td>
+                        <td>{{ tarefa.tar_descricao }}</td>
+                        <td>{{ tarefa.tar_status }}</td>
+                        <td>{{ tarefa.tar_data }}</td>
+                        <td>{{ tarefa.tar_prazo }}</td>
+                        <td>{{ tarefa.tar_prioridade }}</td>
+                        <td class="acoes-links">
+                            <a href="{{ url_for('criar_editar_excluir', tarefa_id=tarefa.tar_id) }}">Editar</a>
+                            <a href="{{ url_for('chama_excluir_tarefa', tarefa_id=tarefa.tar_id) }}">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
