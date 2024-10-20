@@ -15,6 +15,13 @@
             </select>
             <input type="date" name="data_inicio" class="input-date">
             <input type="date" name="data_fim" class="input-date">
+
+            <select name="categoria">
+                <option value="Trabalho">Trabalho</option>
+                <option value="Estudo">Estudo</option>
+                <option value="Pessoal">Pessoal</option>
+            </select>
+
             <button type="submit" class="btn-filtrar">Filtrar</button>
         </form>
 
@@ -42,7 +49,9 @@
                         <td>{{ tarefa.tar_prioridade }}</td>
                         <td class="acoes-links">
                             <a href="{{ url_for('criar_editar_excluir', tarefa_id=tarefa.tar_id) }}">Editar</a>
-                            <a href="{{ url_for('chama_excluir_tarefa', tarefa_id=tarefa.tar_id) }}">Excluir</a>
+                            <form method="POST" action="{{ url_for('chama_excluir_tarefa', tarefa_id=tarefa.tar_id) }}">
+                                <button type="submit">Excluir</button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}

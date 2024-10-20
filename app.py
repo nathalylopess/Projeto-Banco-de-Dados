@@ -129,9 +129,33 @@ def logout():
 
 @app.route('/listar_tarefas', methods=['GET'])
 def listar_tarefas():
-    filtro = request.args.get('descricao')  # Captura o filtro de busca
-    tarefas = buscar_tarefas(filtro)  # Passa o filtro para a função
+  if request.args.get('descricao') != None:
+    filtro = request.args.get('descricao') 
+    tarefas = buscar_tarefas(filtro) 
     return render_template('listar_tarefas.html', tarefas=tarefas)
+
+  elif request.args.get('status') != None:
+    filtro = request.args.get('status') 
+    tarefas = buscar_tarefas(filtro)  
+    return render_template('listar_tarefas.html', tarefas=tarefas)
+
+  elif request.args.get('data_inicio') != None:
+    filtro = request.args.get('data_inicio') 
+    tarefas = buscar_tarefas(filtro)  
+    return render_template('listar_tarefas.html', tarefas=tarefas)
+
+  elif request.args.get('data_fim') != None:
+    filtro = request.args.get('data_fim') 
+    tarefas = buscar_tarefas(filtro)  
+    return render_template('listar_tarefas.html', tarefas=tarefas)
+  
+  elif request.args.get('data_inicio') != None:
+    filtro = request.args.get('data_inicio') 
+    tarefas = buscar_tarefas(filtro)  
+    return render_template('listar_tarefas.html', tarefas=tarefas)
+
+  tarefas = buscar_tarefas() 
+  return render_template('listar_tarefas.html', tarefas=tarefas)
 
 @app.route('/criar_editar_excluir', methods=['GET', 'POST'])
 @app.route('/criar_editar_excluir/<int:tarefa_id>', methods=['GET', 'POST'])

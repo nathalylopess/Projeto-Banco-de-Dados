@@ -57,57 +57,6 @@ class User(UserMixin):
 
             return user
     
-# SELECIONAR USER POR ID   
-    @classmethod
-    def select_data_user_id(cls, id):
-        conexao = obter_conexao()
-        cursor = conexao.cursor(dictionary=True)
-        SELECT = 'SELECT * FROM tb_usuarios WHERE usu_email=%s'
-        cursor.execute(SELECT, (id,))
-        dados = cursor.fetchone()
-        if dados:
-            user = User(dados['usu_nome'], dados['usu_email'], dados['usu_senha'])
-            user.id = dados['usu_id']
-
-            cursor.close()
-            conexao.close()
-
-            return user
-        
-
-# INSERIR USER
-    @classmethod
-    def insert_data_user(cls, nome, email, senha):
-        conexao = obter_conexao()
-
-        cursor = conexao.cursor()
-        INSERT = 'INSERT INTO tb_usuarios (usu_nome, usu_email, usu_senha) VALUES (%s, %s, %s)'
-        cursor.execute(INSERT, (nome, email, senha,))
-        conexao.commit()
-
-        cursor.close()
-        conexao.close()
-
-#ENVIAR EMAIL
-
-    @classmethod
-    def enviar_email(cls, corpo, assunto, destinatario):
-        
-        corpo_email = corpo
-
-        msg = email.message.Message()
-        msg["Subject"] = assunto
-        msg["From"] = "bibliotecavirtual432@gmail.com"
-        msg["To"] = destinatario
-        password = "mjdiinyyrzelbicy"
-        msg.add_header("Content-Type", "text/html")
-        msg.set_payload(corpo_email)
-
-        s = smtplib.SMTP("smtp.gmail.com: 587")
-        s.starttls()
-        s.login(msg["From"], password)
-        s.sendmail(msg["From"], [msg["To"]], msg.as_string().encode("utf-8"))
-
 # Funções para gerenciar as tarefas
 
 def buscar_tarefas(filtro=None):
