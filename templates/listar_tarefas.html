@@ -8,7 +8,7 @@
         <form class="form-filtrar" method="GET" action="{{ url_for('listar_tarefas') }}">
             <input type="text" name="descricao" placeholder="Buscar por descrição" class="input-text">
             <select name="status" class="input-select">
-                <option value="">Filtrar por Status</option>
+                <option value="">Status</option>
                 <option value="Concluída">Concluída</option>
                 <option value="Em andamento">Em andamento</option>
                 <option value="Pendente">Pendente</option>
@@ -17,12 +17,14 @@
             <input type="date" name="data_fim" class="input-date">
 
             <select name="prioridade">
+                <option value="">Prioridade</option>
                 <option value="Baixa">Baixa</option>
                 <option value="Média">Média</option>
                 <option value="Alta">Alta</option>
             </select>
 
             <select name="categoria">
+                <option value="">Categoria</option>
                 <option value="Trabalho">Trabalho</option>
                 <option value="Estudo">Estudo</option>
                 <option value="Pessoal">Pessoal</option>
