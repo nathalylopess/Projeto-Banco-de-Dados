@@ -10,8 +10,13 @@ Este projeto é um sistema de gerenciamento de tarefas que permite aos usuários
 
 ## Passo a passo:
 
+### 0. Clone os arquivos na sua máquina:
+```bash
+git clone https://github.com/nathalylopess/Projeto-Banco-de-Dados.git
+```
+
 ### 1. Instalação das Dependências
-Instale as bibliotecas e dependências necessárias através do `requirements.txt`. Recomenda-se que utilize um ambiente virtual para evitar conflitos de pacotes.
+Dentro da pasta, instale as bibliotecas e dependências necessárias através do `requirements.txt`. Recomenda-se que utilize um ambiente virtual para evitar conflitos de pacotes.
 
 ```bash
 pip install -r requirements.txt
