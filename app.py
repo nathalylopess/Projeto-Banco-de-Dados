@@ -129,32 +129,25 @@ def logout():
 
 @app.route('/listar_tarefas', methods=['GET'])
 def listar_tarefas():
-  if request.args.get('descricao') != None:
-    filtro = request.args.get('descricao') 
-    tarefas = buscar_tarefas(filtro) 
-    return render_template('listar_tarefas.html', tarefas=tarefas)
+  descricao = request.args.get('descricao')
+  status = request.args.get('status')
+  data_inicio = request.args.get('data_inicio')
+  data_fim = request.args.get('data_fim')
+  prioridade = request.args.get('prioridade')
+  categoria = request.args.get('categoria')
 
-  elif request.args.get('status') != None:
-    filtro = request.args.get('status') 
-    tarefas = buscar_tarefas(filtro)  
-    return render_template('listar_tarefas.html', tarefas=tarefas)
+  print(f"Filtros aplicados: descricao={descricao}, status={status}, data_inicio={data_inicio}, data_fim={data_fim}, prioridade={prioridade}, categoria={categoria}")
 
-  elif request.args.get('data_inicio') != None:
-    filtro = request.args.get('data_inicio') 
-    tarefas = buscar_tarefas(filtro)  
-    return render_template('listar_tarefas.html', tarefas=tarefas)
+    
+  tarefas = buscar_tarefas(
+        descricao=descricao,
+        status=status,
+        data_inicio=data_inicio,
+        data_fim=data_fim,
+        prioridade=prioridade,
+        categoria=categoria
+    )
 
-  elif request.args.get('data_fim') != None:
-    filtro = request.args.get('data_fim') 
-    tarefas = buscar_tarefas(filtro)  
-    return render_template('listar_tarefas.html', tarefas=tarefas)
-  
-  elif request.args.get('data_inicio') != None:
-    filtro = request.args.get('data_inicio') 
-    tarefas = buscar_tarefas(filtro)  
-    return render_template('listar_tarefas.html', tarefas=tarefas)
-
-  tarefas = buscar_tarefas() 
   return render_template('listar_tarefas.html', tarefas=tarefas)
 
 @app.route('/criar_editar_excluir', methods=['GET', 'POST'])

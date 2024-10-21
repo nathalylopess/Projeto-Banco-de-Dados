@@ -15,7 +15,7 @@ html, body {
     height: 40%;
     display: flex;
     justify-content: center; 
-    background-color: #4587df; 
+    background-color: rgba(169, 55, 184, 0.822); 
     text-align: center;
 }
 
@@ -38,7 +38,7 @@ html, body {
     background-color: white; 
     padding: 39px; 
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 0 10px rgba(169, 55, 184, 0.822); 
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -56,19 +56,19 @@ input, .button {
 }
 
 .button {
-    background-color: #007bff; 
+    background-color: rgba(161, 57, 175, 0.822) ; 
     color: white; 
     border: none; 
     cursor: pointer; 
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: rgba(240, 129, 255, 0.822);
 }
 
 input:focus {
     outline: none; 
-    border-color: #007bff; 
+    border-color: rgba(161, 57, 175, 0.822) ; 
 }
 
 a{
@@ -88,18 +88,18 @@ nav {
     flex-shrink: 0;
     display: flex;
     justify-content: center; 
-    background-color: #4587df; 
+    background-color: rgba(169, 55, 184, 0.822); 
     text-align: center;
 }
 
 nav a {
     color: white;
-    background-color: #0056b3;
+    background-color: rgba(161, 57, 175, 0.822);
     padding: 10px;
     border-radius: 30px;
 }
 nav a:hover{
-    background-color: aqua;
+    background-color: rgba(240, 129, 255, 0.822);
     color: black;
 }
 .delete {
@@ -109,11 +109,11 @@ nav a:hover{
 
 /* página de logout: */
 .form_logout {
-    border: 1px solid #0056b3 ;
+    border: 1px solid rgba(161, 57, 175, 0.822) ;
     color: black;
     padding: 39px; 
     border-radius: 5px;
-    box-shadow: 0 0 10px #0056b3; 
+    box-shadow: 0 0 10px rgba(161, 57, 175, 0.822); 
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -129,7 +129,7 @@ nav a:hover{
 .form_logout .sim_sair, .nao_sair {
     margin-top: 10px;
     display: flex;
-    background-color: #007bff;
+    background-color:  rgba(161, 57, 175, 0.822) ;
     font-size: 16px;
     justify-content: center;
     align-items: center;
@@ -145,7 +145,7 @@ nav a:hover{
 }
 
 .ola {
-    color: #0056b3;
+    color: rgba(161, 57, 175, 0.822);
 }
 #oi {
     width: 50%;
@@ -156,13 +156,13 @@ nav a:hover{
 }
 
 #livro:hover {
-    color:#007bff;
+    color:rgba(240, 129, 255, 0.822) ;
 }
 
 #delete {
     margin-top: 10px;
     display: flex;
-    background-color: #007bff;
+    background-color: rgba(161, 57, 175, 0.822) ;
     border: none;
     color: white;
     height: 35px;
@@ -170,11 +170,11 @@ nav a:hover{
 }
 
 #adicionar{
-    border: 1px solid #0056b3 ;
+    border: 1px solid rgba(161, 57, 175, 0.822) ;
     color: black;
     padding: 39px; 
     border-radius: 5px;
-    box-shadow: 0 0 10px #0056b3; 
+    box-shadow: 0 0 10px rgba(161, 57, 175, 0.822); 
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -203,7 +203,7 @@ nav a:hover{
 #adicionar .botao_enviar {
     margin-top: 10px;
     display: flex;
-    background-color: #007bff;
+    background-color: rgba(161, 57, 175, 0.822) ;
     border: none;
     color: white;
     height: 35px;
@@ -213,7 +213,7 @@ nav a:hover{
 
 #liv {
     margin-left: 10px;
-    text-shadow: 0 0 10px #0056b3;
+    text-shadow: 0 0 10px rgba(161, 57, 175, 0.822);
 }
 
 /* Listar Tarefas */
@@ -235,7 +235,7 @@ nav a:hover{
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(169, 55, 184, 0.822);
 }
 
 .input-text, .input-date, .input-select {
@@ -250,13 +250,13 @@ nav a:hover{
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    background-color: #007bff;
+    background-color: rgba(161, 57, 175, 0.822) ;
     color: white;
     cursor: pointer;
 }
 
 .btn-filtrar:hover {
-    background-color: #0056b3;
+    background-color: rgba(240, 129, 255, 0.822);
 }
 
 /* Tabela de tarefas */
@@ -296,7 +296,7 @@ nav a:hover{
 .acoes-links a, button{
     margin-right: 10px;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: rgba(161, 57, 175, 0.822) ;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -305,10 +305,10 @@ nav a:hover{
 }
 
 .acoes-links a:hover {
-    background-color: #0056b3;
+    background-color: rgba(240, 129, 255, 0.822);
 }
 
 .acoes-links button:hover {
-    background-color: #0056b3;
+    background-color: rgba(240, 129, 255, 0.822);
 }
 

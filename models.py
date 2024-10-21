@@ -37,8 +37,35 @@ class User(UserMixin):
             user = None
         return user
 
+# INSERIR USER
+    @classmethod
+    def insert_data_user(cls, nome, email, senha):
+        conexao = obter_conexao()
+        cursor = conexao.cursor()
+        INSERT = 'INSERT INTO tb_usuarios (usu_nome, usu_email, usu_senha) VALUES (%s, %s, %s)'
+        cursor.execute(INSERT, (nome, email, senha,))
+        conexao.commit()
+        cursor.close()
+        conexao.close()
 
-# Funções do banco de dados nas tabelas usuarios e livros
+#ENVIAR EMAIL
+    @classmethod
+    def enviar_email(cls, corpo, assunto, destinatario):
+        
+        corpo_email = corpo
+        msg = email.message.Message()
+        msg["Subject"] = assunto
+        msg["From"] = "bibliotecavirtual432@gmail.com"
+        msg["To"] = destinatario
+        password = "mjdiinyyrzelbicy"
+        msg.add_header("Content-Type", "text/html")
+        msg.set_payload(corpo_email)
+        s = smtplib.SMTP("smtp.gmail.com: 587")
+        s.starttls()
+        s.login(msg["From"], password)
+        s.sendmail(msg["From"], [msg["To"]], msg.as_string().encode("utf-8"))
+
+# Funções do banco de dados nas tabelas usuarios 
 
 # SELECIONAR USER POR EMAIL   
     @classmethod
@@ -59,21 +86,50 @@ class User(UserMixin):
     
 # Funções para gerenciar as tarefas
 
-def buscar_tarefas(filtro=None):
+def buscar_tarefas(descricao=None, status=None, data_inicio=None, data_fim=None, prioridade=None, categoria=None):
     conn = obter_conexao()
     cursor = conn.cursor(dictionary=True)
+
+    # Base da query
+    query = "SELECT * FROM tb_tarefas WHERE 1=1"
+    params = []
+
+    # Adiciona condições dinamicamente
+    if descricao:
+        query += " AND tar_descricao LIKE %s"
+        params.append(f"%{descricao}%")
     
-    if filtro:
-        # Exemplo de filtro (adapte conforme necessário)
-        query = "SELECT * FROM tb_tarefas WHERE tar_descricao LIKE %s"
-        cursor.execute(query, (f"%{filtro}%",))
-    else:
-        cursor.execute("SELECT * FROM tb_tarefas")
-        
+    if status:
+        query += " AND tar_status = %s"
+        params.append(status)
+    
+    if data_inicio:
+        query += " AND tar_data >= %s"
+        params.append(data_inicio)
+    
+    if data_fim:
+        query += " AND tar_data <= %s"
+        params.append(data_fim)
+    
+    if prioridade:
+        query += " AND tar_prioridade = %s"
+        params.append(prioridade)
+    
+    if categoria:
+        query += " AND tar_categoria = %s"
+        params.append(categoria)
+
+    # Executa a query com os parâmetros
+    cursor.execute(query, tuple(params))
     tarefas = cursor.fetchall()
+
     cursor.close()
     conn.close()
+
     return tarefas
+
+
+
 
 def criar_tarefa(descricao, data, prazo, status, prioridade, categoria):
     conn = obter_conexao()
