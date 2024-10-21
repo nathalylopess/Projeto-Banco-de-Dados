@@ -99,7 +99,7 @@ class Tarefa:
             query += " AND tar_descricao LIKE %s"
             params.append(f"%{descricao}%")
         
-        if status:
+        if status   is not None :
             query += " AND tar_status = %s"
             params.append(status)
         
@@ -111,11 +111,11 @@ class Tarefa:
             query += " AND tar_data <= %s"
             params.append(data_fim)
         
-        if prioridade:
+        if prioridade is not None:
             query += " AND tar_prioridade = %s"
             params.append(prioridade)
         
-        if categoria:
+        if categoria is not None:
             query += " AND tar_categoria = %s"
             params.append(categoria)
 
