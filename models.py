@@ -92,35 +92,35 @@ class Tarefa:
 
         # Base da query
         query = "SELECT * FROM tb_tarefas WHERE tar_usu_id = %s"
-        params = [id_usuario]
+        parametros = [id_usuario]
 
         # Adiciona condições dinamicamente
         if descricao:
             query += " AND tar_descricao LIKE %s"
-            params.append(f"%{descricao}%")
+            parametros.append(f"%{descricao}%")
         
         if status   is not None :
             query += " AND tar_status = %s"
-            params.append(status)
+            parametros.append(status)
         
         if data_inicio:
             query += " AND tar_data >= %s"
-            params.append(data_inicio)
+            parametros.append(data_inicio)
         
         if data_fim:
             query += " AND tar_data <= %s"
-            params.append(data_fim)
+            parametros.append(data_fim)
         
         if prioridade is not None:
             query += " AND tar_prioridade = %s"
-            params.append(prioridade)
+            parametros.append(prioridade)
         
         if categoria is not None:
             query += " AND tar_categoria = %s"
-            params.append(categoria)
+            parametros.append(categoria)
 
         # Executa a query com os parâmetros
-        cursor.execute(query, params)
+        cursor.execute(query, parametros)
         tarefas = cursor.fetchall()
 
         cursor.close()
