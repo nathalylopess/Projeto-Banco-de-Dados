@@ -83,79 +83,80 @@ class User(UserMixin):
             cursor.close()
 
             return user
-    
-# Funções para gerenciar as tarefas
 
-def buscar_tarefas(descricao=None, status=None, data_inicio=None, data_fim=None, prioridade=None, categoria=None):
-    conn = obter_conexao()
-    cursor = conn.cursor(dictionary=True)
+class Tarefa:
+    @staticmethod
+    def buscar_tarefas(id_usuario, descricao=None, status=None, data_inicio=None, data_fim=None, prioridade=None, categoria=None):
+        conn = obter_conexao()
+        cursor = conn.cursor(dictionary=True)
 
-    # Base da query
-    query = "SELECT * FROM tb_tarefas WHERE 1=1"
-    params = []
+        # Base da query
+        query = "SELECT * FROM tb_tarefas WHERE tar_usu_id = %s"
+        params = [id_usuario]
 
-    # Adiciona condições dinamicamente
-    if descricao:
-        query += " AND tar_descricao LIKE %s"
-        params.append(f"%{descricao}%")
-    
-    if status:
-        query += " AND tar_status = %s"
-        params.append(status)
-    
-    if data_inicio:
-        query += " AND tar_data >= %s"
-        params.append(data_inicio)
-    
-    if data_fim:
-        query += " AND tar_data <= %s"
-        params.append(data_fim)
-    
-    if prioridade:
-        query += " AND tar_prioridade = %s"
-        params.append(prioridade)
-    
-    if categoria:
-        query += " AND tar_categoria = %s"
-        params.append(categoria)
+        # Adiciona condições dinamicamente
+        if descricao:
+            query += " AND tar_descricao LIKE %s"
+            params.append(f"%{descricao}%")
+        
+        if status:
+            query += " AND tar_status = %s"
+            params.append(status)
+        
+        if data_inicio:
+            query += " AND tar_data >= %s"
+            params.append(data_inicio)
+        
+        if data_fim:
+            query += " AND tar_data <= %s"
+            params.append(data_fim)
+        
+        if prioridade:
+            query += " AND tar_prioridade = %s"
+            params.append(prioridade)
+        
+        if categoria:
+            query += " AND tar_categoria = %s"
+            params.append(categoria)
 
-    # Executa a query com os parâmetros
-    cursor.execute(query, tuple(params))
-    tarefas = cursor.fetchall()
+        # Executa a query com os parâmetros
+        cursor.execute(query, params)
+        tarefas = cursor.fetchall()
 
-    cursor.close()
-    conn.close()
+        cursor.close()
+        conn.close()
 
-    return tarefas
+        return tarefas
 
+    @staticmethod
+    def criar_tarefa(descricao, data, prazo, status, prioridade, categoria, usu_id):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO tb_tarefas (tar_descricao, tar_data, tar_prazo, tar_status, tar_prioridade, tar_categoria, tar_usu_id) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (descricao, data, prazo, status, prioridade, categoria, usu_id)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
 
+    @staticmethod
+    def editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade, categoria):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE tb_tarefas SET tar_descricao=%s, tar_data=%s, tar_prazo=%s, tar_status=%s, tar_prioridade=%s, tar_categoria=%s WHERE tar_id=%s",
+            (descricao, data, prazo, status, prioridade, categoria, tarefa_id)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
 
-
-def criar_tarefa(descricao, data, prazo, status, prioridade, categoria):
-    conn = obter_conexao()
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO tb_tarefas (tar_descricao, tar_data, tar_prazo, tar_status, tar_prioridade, tar_categoria) VALUES (%s, %s, %s, %s, %s, %s)", 
-                   (descricao, data, prazo, status, prioridade, categoria))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-def editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade, categoria):
-    conn = obter_conexao()
-    cursor = conn.cursor()
-    cursor.execute("UPDATE tb_tarefas SET tar_descricao=%s, tar_data=%s, tar_prazo=%s, tar_status=%s, tar_prioridade=%s, tar_categoria=%s WHERE tar_id=%s", 
-                   (descricao, data, prazo, status, prioridade, categoria, tarefa_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-def excluir_tarefa(tarefa_id):
-    conn = obter_conexao()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM tb_tarefas WHERE tar_id=%s", (tarefa_id,))
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-
-
+    @staticmethod
+    def excluir_tarefa(tarefa_id):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM tb_tarefas WHERE tar_id=%s", (tarefa_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()

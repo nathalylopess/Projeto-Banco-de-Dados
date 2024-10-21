@@ -21,8 +21,11 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         senha = request.form["senha"]
-
+    
         user = User.select_data_user_email(email)
+        if user is None:
+            return render_template('index.html', error="Email ou senha inválidos.")
+
         hash = user.senha
         if user and check_password_hash(hash, senha):
             login_user(user)
@@ -128,18 +131,25 @@ def logout():
 # Rotas adicionadas
 
 @app.route('/listar_tarefas', methods=['GET'])
+@login_required
 def listar_tarefas():
-  descricao = request.args.get('descricao')
-  status = request.args.get('status')
-  data_inicio = request.args.get('data_inicio')
-  data_fim = request.args.get('data_fim')
-  prioridade = request.args.get('prioridade')
-  categoria = request.args.get('categoria')
+  descricao = request.args.get('descricao') or None
+  status = request.args.get('status') or None
+  data_inicio = request.args.get('data_inicio') or None
+  data_fim = request.args.get('data_fim') or None
+  prioridade = request.args.get('prioridade') or None
+  categoria = request.args.get('categoria') or None
+
+  if current_user.is_authenticated:
+    id_usuario = current_user.id
+  else:
+    return redirect(url_for('login'))
 
   print(f"Filtros aplicados: descricao={descricao}, status={status}, data_inicio={data_inicio}, data_fim={data_fim}, prioridade={prioridade}, categoria={categoria}")
 
     
-  tarefas = buscar_tarefas(
+  tarefas = Tarefa.buscar_tarefas(
+        id_usuario=id_usuario,
         descricao=descricao,
         status=status,
         data_inicio=data_inicio,
@@ -160,13 +170,14 @@ def criar_editar_excluir(tarefa_id=None):
         status = request.form['status']
         prioridade = request.form['prioridade']
         categoria = request.form['categoria']
+        usu_id = current_user.id
         
         if tarefa_id:
             # Atualizar tarefa
-            editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade, categoria)
+            Tarefa.editar_tarefa(tarefa_id, descricao, data, prazo, status, prioridade, categoria)
         else:
             # Criar nova tarefa
-            criar_tarefa(descricao, data, prazo, status, prioridade, categoria)
+            Tarefa.criar_tarefa(descricao, data, prazo, status, prioridade, categoria, usu_id)
         
         return redirect(url_for('listar_tarefas'))
     
@@ -183,7 +194,7 @@ def criar_editar_excluir(tarefa_id=None):
 
 @app.route('/excluir_tarefa/<int:tarefa_id>', methods=['POST'])
 def chama_excluir_tarefa(tarefa_id):
-    excluir_tarefa(tarefa_id)
+    Tarefa.excluir_tarefa(tarefa_id)
     return redirect(url_for('listar_tarefas'))
 
 if __name__ == '__main__':
