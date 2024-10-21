@@ -1,8 +1,12 @@
 # Sistema de Gerenciamento de Tarefas
-CRUD de gerenciamento de tarefas com MySQL, Python e Flask
 
 ## Descrição
 Este projeto é um sistema de gerenciamento de tarefas que permite aos usuários se cadastrarem, fazerem login e gerenciarem suas tarefas com funcionalidades de criação, edição, exclusão e filtragem.
+
+## Tecnologias Utilizadas
+* Flask: Framework para desenvolvimento web em Python.
+* MySQL: Sistema de gerenciamento de banco de dados.
+* HTML/CSS: Para a construção do front-end.
 
 ## Passo a passo:
 
@@ -17,5 +21,15 @@ pip install -r requirements.txt
 **Linux:**
 ```bash
 python3 init_db.py
+```
+
+**Windows**
+```bash
+python init_db.py
+```
+
+### 3. Execute a aplicação
+```bash
+flask run --debug
 ```
 
